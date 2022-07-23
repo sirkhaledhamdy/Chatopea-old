@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>869123553906-945p45kp2buaa11t2va5gbnclq9e8857.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.869123553906-945p45kp2buaa11t2va5gbnclq9e8857</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>869123553906-45mse7l31ajij13c8g3usjb4vpcpv15n.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAZCTlTwcdL6O4aIMktsKsFBL1BuKnshqk</string>
+	<key>GCM_SENDER_ID</key>
+	<string>869123553906</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.blue.chatopea.chatopea</string>
+	<key>PROJECT_ID</key>
+	<string>chatopea-91d74</string>
+	<key>STORAGE_BUCKET</key>
+	<string>chatopea-91d74.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:869123553906:ios:862c40edc924bb341a20eb</string>
+</dict>
+</plist>

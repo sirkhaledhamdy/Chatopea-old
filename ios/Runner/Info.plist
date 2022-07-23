@@ -27,7 +27,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>photo libirary</string>
+	<string>photo library</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

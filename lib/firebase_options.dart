@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC5v_QtmfGBWJdRixiDlyHuOBKachA3lqY',
-    appId: '1:869123553906:android:9104e2de7579d5de1a20eb',
+    appId: '1:869123553906:android:3756331011e9bd261a20eb',
     messagingSenderId: '869123553906',
     projectId: 'chatopea-91d74',
     storageBucket: 'chatopea-91d74.appspot.com',

@@ -1,7 +1,6 @@
 import 'package:chatopea/modules/social_app/home/home_screen.dart';
 import 'package:chatopea/on_boarding_screen.dart';
 import 'package:chatopea/styles/themes.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,8 +61,7 @@ Future<void> main() async{
 
 
       uId = CacheHelper.getData(key: 'uId');
-      // if (uId != null)
-      if (FirebaseAuth.instance.currentUser != null)
+      if (uId != null)
       {
         widget = SocialHomeLayout();
       }else{

@@ -361,7 +361,6 @@ Widget bulidPostItem(SocialPostModel model , context , index , commentController
                   Flexible(
                     child: TextFormField(
                       textInputAction: TextInputAction.done,
-                      key: UniqueKey(),
                       onFieldSubmitted: (String){
                         SocialCubit.get(context).commentPost(
                           SocialCubit.get(context).postId[index],

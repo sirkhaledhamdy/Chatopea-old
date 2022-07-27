@@ -19,6 +19,7 @@ import '../other_profile/other_profile_screen.dart';
 
 class FeedsScreen extends StatelessWidget {
 
+
   FocusNode inputNode = FocusNode();
   void clearText() {
     commentController.clear();

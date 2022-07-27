@@ -18,6 +18,7 @@ import '../models/change_favourite_model.dart';
 import '../models/comment_model.dart';
 import '../modules/social_app/feeds/feeds_screen.dart';
 import '../modules/social_app/followers/followers_screen.dart';
+import '../network/local/cache_helper.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -30,14 +31,14 @@ class SocialCubit extends Cubit<SocialStates> {
   SocialCommentModel? commentModel;
 
   getUserData() async {
+    String myID = FirebaseAuth.instance.currentUser!.uid;
     emit(SocialGetUserLoadingState());
-
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(uId)
+        .doc(myID)
         .get()
         .then((value) {
-      if (uId != null) {
+      if (myID != '') {
         userModel = SocialUserModel.fromJson(value.data());
       }
       emit(SocialGetUserSuccessState());
@@ -47,16 +48,20 @@ class SocialCubit extends Cubit<SocialStates> {
     });
   }
 
-  getAnyUserData(uId) async {
+  getAnyUserData(myID) async {
+    userPosts = [];
     emit(SocialGetUserLoadingState());
 
     await FirebaseFirestore.instance
         .collection('users')
-        .doc(uId)
+        .doc(myID)
         .get()
         .then((value) {
-      if (uId != null) {
+      if (myID != null) {
         otherUserModel = SocialUserModel.fromJson(value.data());
+        if(userPosts.isEmpty) {
+          userPosts = posts.where((element) => element.uId == otherUserModel!.uId).toList();
+        }
       }
       emit(SocialGetUserSuccessState());
     }).catchError((error) {
@@ -87,7 +92,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   Future getImage() async {
     final XFile? image =
-        await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
+    await _picker.pickImage(source: ImageSource.gallery, imageQuality: 50);
 
     if (image != null) {
       profileImage = File(image.path);
@@ -151,7 +156,7 @@ class SocialCubit extends Cubit<SocialStates> {
     print(model.toString());
     print(model);
     print(model.title);
-    print(userModel!.title);
+    print(userModel!.uId);
     FirebaseFirestore.instance
         .collection('users')
         .doc(userModel!.uId)
@@ -159,6 +164,8 @@ class SocialCubit extends Cubit<SocialStates> {
         .then((value) {
       getUserData();
     }).catchError((error) {
+      print(error.toString());
+
       emit(SocialUSerUpdateErrorState());
     });
   }
@@ -238,20 +245,21 @@ class SocialCubit extends Cubit<SocialStates> {
   List<String> postId = [];
 
   getPosts() async {
-    posts = [];
     postId = [];
     myPosts = [];
+    posts = [];
     FirebaseFirestore.instance
         .collection('posts')
         .orderBy('dateTime', descending: true)
         .snapshots()
         .listen((event) {
       {
+        posts = [];
         for (var element in event.docs) {
           postId.add(element.id);
           posts.add(SocialPostModel.fromJson(element.data()));
         }
-        if(myPosts.isEmpty){
+        if(myPosts.isEmpty) {
           myPosts = posts.where((element) => element.uId == userModel!.uId).toList();
         }
         emit(SocialGetPostSuccessState());
@@ -260,6 +268,8 @@ class SocialCubit extends Cubit<SocialStates> {
   }
 
   List<SocialPostModel> myPosts = [];
+  List<SocialPostModel> userPosts = [];
+
 
 
   void likePost(String postId, SocialPostModel postModel, int index) async {
@@ -296,7 +306,7 @@ class SocialCubit extends Cubit<SocialStates> {
   void commentPost(String postId, SocialPostModel postModel, int index,
       DateTime? dateTime, String? userImage, String? comment) async {
     SocialCommentModel? commentModel = SocialCommentModel(
-      userId: uId,
+      userId: userModel!.uId,
       dateTime: dateTime,
       imageUser: userModel!.image,
       comment: comment,
@@ -333,6 +343,7 @@ class SocialCubit extends Cubit<SocialStates> {
 
   getUsers() async {
     allUsers = [];
+
     if (allUsers.isEmpty) {
       await FirebaseFirestore.instance.collection('users').get().then((value) {
         for (var element in value.docs) {
@@ -396,9 +407,9 @@ class SocialCubit extends Cubit<SocialStates> {
         .doc(receiverId)
         .collection('messages')
         .orderBy(
-          'dateTime',
-          descending: true,
-        )
+      'dateTime',
+      descending: true,
+    )
         .snapshots()
         .listen((event) {
       messages = [];
@@ -493,5 +504,17 @@ class SocialCubit extends Cubit<SocialStates> {
     }
 
 
+
   }
+}
+
+
+void listenAuth() {
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    if (user == null) {
+      print('User is currently signed out!');
+    } else {
+      print('User is signed in!');
+    }
+  });
 }

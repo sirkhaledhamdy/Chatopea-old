@@ -1,13 +1,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.blue.chatopea">
-   <application
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+
        tools:node="replace"
        android:label="chatopea"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
-            android:name="com.blue.chatopea.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
@@ -34,4 +36,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
 </manifest>

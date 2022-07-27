@@ -51,9 +51,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC5v_QtmfGBWJdRixiDlyHuOBKachA3lqY',
-    appId: '1:869123553906:android:3756331011e9bd261a20eb',
+    appId: '1:869123553906:android:9104e2de7579d5de1a20eb',
     messagingSenderId: '869123553906',
     projectId: 'chatopea-91d74',
+    databaseURL: 'https://chatopea-91d74-default-rtdb.firebaseio.com',
     storageBucket: 'chatopea-91d74.appspot.com',
   );
 
@@ -62,6 +63,7 @@ class DefaultFirebaseOptions {
     appId: '1:869123553906:ios:862c40edc924bb341a20eb',
     messagingSenderId: '869123553906',
     projectId: 'chatopea-91d74',
+    databaseURL: 'https://chatopea-91d74-default-rtdb.firebaseio.com',
     storageBucket: 'chatopea-91d74.appspot.com',
     androidClientId: '869123553906-45mse7l31ajij13c8g3usjb4vpcpv15n.apps.googleusercontent.com',
     iosClientId: '869123553906-945p45kp2buaa11t2va5gbnclq9e8857.apps.googleusercontent.com',

@@ -1,10 +1,14 @@
+import 'package:chatopea/auth_service.dart';
 import 'package:chatopea/modules/social_app/home/home_screen.dart';
 import 'package:chatopea/on_boarding_screen.dart';
 import 'package:chatopea/styles/themes.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'constants/components/components.dart';
 import 'constants/constants.dart';
 import 'cubit/appCubit.dart';
 import 'cubit/appStates.dart';
@@ -15,37 +19,42 @@ import 'network/remote/dio_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print('on background message');
+  print(message.data.toString());
 
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // If you're going to use other Firebase services in the background, such as Firestore,
-  // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  print('Handling a background message ${message.messageId}');
+  showToast(
+    text: 'on background message',
+    state: ToastStates.success,
+  );
 }
 
-Future<void> main() async{
 
+Future main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
-
-
   await Firebase.initializeApp(
 
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
+ token = await FirebaseMessaging.instance.getToken();
+  print(' token is :  $token');
 
-  NotificationSettings settings = await messaging.requestPermission(
-    alert: true,
-    announcement: false,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: false,
-    sound: true,
-  );
+  FirebaseMessaging.onMessage.listen((event)
+  {
+    print('on message');
+    print(event.data.toString());
 
+    showToast(text: 'on message', state: ToastStates.success,);
+  });
+  // when click on notification to open app
+  FirebaseMessaging.onMessageOpenedApp.listen((event)
+  {
+    print('on message opened app');
+    print(event.data.toString());
+    showToast(text: 'on message opened app', state: ToastStates.success,);
+  });
+  // background fcm
   BlocOverrides.runZoned(
         () async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -54,22 +63,15 @@ Future<void> main() async{
       bool? isDark = CacheHelper.getData(
         key: 'isDark',
       );
-      Widget? widget;
-      // bool? onBoarding = CacheHelper.getData(
-      //   key: 'onBoarding',
-      // );
-
-
-      uId = CacheHelper.getData(key: 'uId');
-      if (uId != null)
-      {
-        widget = SocialHomeLayout();
+      final User? user = FirebaseAuth.instance.currentUser;
+      if(user != null) {
+        uId = FirebaseAuth.instance.currentUser!.uid;
       }else{
-        widget = SocialHomeScreen();
+        uId = '';
       }
+      FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
       runApp(MyApp(
         isDark: isDark,
-        startWidget: widget,
       ));
     },
     blocObserver: MyBlocObserver(),
@@ -80,8 +82,7 @@ Future<void> main() async{
 
 class MyApp extends StatelessWidget {
   final bool? isDark;
-  final Widget? startWidget;
-  MyApp({this.isDark, this.startWidget});
+  const MyApp({this.isDark});
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +112,7 @@ class MyApp extends StatelessWidget {
             darkTheme: darkTheme,
             themeMode:
             ThemeMode.light,
-            home: startWidget,
+            home: AuthService().handleAuthState(),
           );
         },
       ),

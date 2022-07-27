@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SocialLoginCubit extends Cubit<SocialLoginStates> {
   SocialLoginCubit() : super(SocialLoginInitialState());
@@ -20,11 +21,10 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
 
     emit(SocialLoginLoadingState());
 
-   await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+    await FirebaseAuth.instance.signInWithEmailAndPassword(
+      email: email,
+      password: password,
     ).then((value) {
-
       emit(SocialLoginsSuccessState(value.user!.uid));
     }).catchError((error){
       print(error.toString());
@@ -32,6 +32,27 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
     });
 
   }
+
+
+
+  signInWithGoogle()async{
+    final GoogleSignInAccount? googleUser = await GoogleSignIn(
+        scopes: <String>["email"]).signIn();
+
+    final GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
+    );
+
+    return await FirebaseAuth.instance.signInWithCredential(credential);
+
+  }
+
+
+
+
 
   IconData suffix = Icons.visibility;
   bool isPassShown = true;
@@ -43,15 +64,5 @@ class SocialLoginCubit extends Cubit<SocialLoginStates> {
     emit(SocialchangePassVisibilityState());
   }
 
-  signOut() async {
-    try{
-      await FirebaseAuth.instance.signOut();
-      emit(SocialSignOutSuccessState());
-    }catch (e){
-      print(e);
-      emit(SocialSignOutSuccessState());
-    }
 
-
-  }
 }

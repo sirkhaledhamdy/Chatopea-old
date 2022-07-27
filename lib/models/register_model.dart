@@ -28,9 +28,9 @@ class SocialUserModel
     json['followers'].forEach((element){
       followers.add(SocialFollowModel.fromJson(element,),);
     });
-      json['following'].forEach((element){
-        following.add(SocialFollowModel.fromJson(element,),);
-      });
+    json['following'].forEach((element){
+      following.add(SocialFollowModel.fromJson(element,),);
+    });
 
   }
   Map<String , dynamic> toMap()

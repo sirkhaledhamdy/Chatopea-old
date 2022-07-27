@@ -1,4 +1,11 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+
+import '../cubit/cubit.dart';
+import '../modules/social_app/login/login_screen.dart';
+import '../network/local/cache_helper.dart';
+import 'components/components.dart';
 
 class MyBlocObserver extends BlocObserver {
   @override
@@ -8,21 +15,9 @@ class MyBlocObserver extends BlocObserver {
   }
 
   @override
-  void onEvent(Bloc bloc, Object? event) {
-    super.onEvent(bloc, event);
-    print('onEvent -- ${bloc.runtimeType}, $event');
-  }
-
-  @override
   void onChange(BlocBase bloc, Change change) {
     super.onChange(bloc, change);
     print('onChange -- ${bloc.runtimeType}, $change');
-  }
-
-  @override
-  void onTransition(Bloc bloc, Transition transition) {
-    super.onTransition(bloc, transition);
-    print('onTransition -- ${bloc.runtimeType}, $transition');
   }
 
   @override
@@ -39,5 +34,26 @@ class MyBlocObserver extends BlocObserver {
 }
 
 
-String? token = '';
-String? uId = '';
+String ?token = '';
+String ?uId = '';
+
+
+void signOut(context) {
+
+  CacheHelper.removeData(key:'uId');
+  navigateAndFinish(
+    context,
+    SocialLoginScreen(),
+  );
+  SocialCubit.get(context).currentIndex=0;
+  SocialCubit.get(context).allUsers=[];
+  SocialCubit.get(context).posts=[];
+  SocialCubit.get(context).postId=[];
+  SocialCubit.get(context).userPosts=[];
+}
+
+
+String getOS(){
+  return Platform.operatingSystem;
+}
+

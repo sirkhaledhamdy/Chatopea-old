@@ -78,7 +78,7 @@ class FollowersScreen extends StatelessWidget {
 
 Widget buildFollowItem(SocialFollowModel? followModel  , context  ,index) => GestureDetector(
   onTap: (){
-      navigateTo(context, OtherProfileScreen(uId: followModel!.uId,));
+    navigateTo(context, OtherProfileScreen(uId: followModel!.uId,));
   },
   child: Padding(
     padding: const EdgeInsets.all(16.0),

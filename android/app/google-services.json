@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "869123553906",
+    "firebase_url": "https://chatopea-91d74-default-rtdb.firebaseio.com",
     "project_id": "chatopea-91d74",
     "storage_bucket": "chatopea-91d74.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:869123553906:android:3756331011e9bd261a20eb",
+        "mobilesdk_app_id": "1:869123553906:android:9104e2de7579d5de1a20eb",
         "android_client_info": {
           "package_name": "com.blue.chatopea"
         }
@@ -21,42 +22,6 @@
             "certificate_hash": "ccde59b04e870b955a79b614e299f22dc3ed3f81"
           }
         },
-        {
-          "client_id": "869123553906-v9jqk3pl76erccj9u4jrue4mt17co1fu.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyC5v_QtmfGBWJdRixiDlyHuOBKachA3lqY"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "869123553906-v9jqk3pl76erccj9u4jrue4mt17co1fu.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "869123553906-945p45kp2buaa11t2va5gbnclq9e8857.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.blue.chatopea.chatopea"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:869123553906:android:c1d8348585aaac951a20eb",
-        "android_client_info": {
-          "package_name": "com.blue.chatopea.chatopea"
-        }
-      },
-      "oauth_client": [
         {
           "client_id": "869123553906-v9jqk3pl76erccj9u4jrue4mt17co1fu.apps.googleusercontent.com",
           "client_type": 3

@@ -47,7 +47,6 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     SocialUserModel? model = SocialUserModel(
       followers: [],
       following: [],
-      title: 'Write your title',
       email: email,
       name: name,
       phone: phone,
@@ -56,15 +55,15 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       isEmailVerified: false,
       image: 'https://img.freepik.com/free-photo/waist-up-portrait-handsome-serious-unshaven-male-keeps-hands-together-dressed-dark-blue-shirt-has-talk-with-interlocutor-stands-against-white-wall-self-confident-man-freelancer_273609-16320.jpg',
     );
-   await FirebaseFirestore.instance
+    await FirebaseFirestore.instance
         .collection('users')
         .doc(uId)
         .set(model.toMap())
         .then((value) {
-          emit(SocialCreateUserSuccessState(model.uId));
+      emit(SocialCreateUserSuccessState(model.uId));
     }).catchError((error){
       print(error.toString());
-          emit(SocialCreateUserErrorState(error.toString()));
+      emit(SocialCreateUserErrorState(error.toString()));
     });
   }
 

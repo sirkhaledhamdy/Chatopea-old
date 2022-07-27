@@ -47,10 +47,10 @@ class EditProfileScreen extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     SocialCubit.get(context).updateUserData(
-                        name: nameController.text == "" ? null :nameController.text,
-                        phone: phoneController.text == "" ? null :phoneController.text,
-                        bio: bioController.text== "" ? null :bioController.text,
-                        title: titleController.text== "" ? null :titleController.text,
+                      name: nameController.text == "" ? null :nameController.text,
+                      phone: phoneController.text == "" ? null :phoneController.text,
+                      bio: bioController.text== "" ? null :bioController.text,
+                      title: titleController.text== "" ? null :titleController.text,
                     );
                     Navigator.pop(context);
                   },
@@ -60,7 +60,7 @@ class EditProfileScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Padding(
               padding:
-                  const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
+              const EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -71,10 +71,10 @@ class EditProfileScreen extends StatelessWidget {
                       child: LinearProgressIndicator(),),
                   Text('See information about your account , update your information like name , profile picture , etc ... or delete your account.',
                     style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400
-                  ),
+                        color: Colors.grey,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400
+                    ),
 
                   ),
                   SizedBox(height: 20,),
@@ -92,7 +92,7 @@ class EditProfileScreen extends StatelessWidget {
                                   radius: 60,
                                   backgroundImage: profileImage == null
                                       ? CachedNetworkImageProvider(
-                                          '${userModel!.image}')
+                                      '${userModel!.image}')
                                       : FileImage(profileImage) as ImageProvider,
                                 ),
                                 IconButton(
@@ -113,30 +113,30 @@ class EditProfileScreen extends StatelessWidget {
                               height: 15,
                             ),
                             if(SocialCubit.get(context).profileImage != null)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                defaultButton(
-                                  onPressed: () {
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  defaultButton(
+                                    onPressed: () {
 
-                                    SocialCubit.get(context).uploadImage(
+                                      SocialCubit.get(context).uploadImage(
                                         name: nameController.text,
                                         phone: phoneController.text,
                                         bio: bioController.text,
                                         title: titleController.text,
-                                    );
-                                  },
-                                  text: 'Upload',
-                                  textColor: secDefaultColor,
-                                  minWidth: 100,
-                                ),
-                                SizedBox(height: 10,),
-                                if(state is SocialUSerUpdateLoadingState)
-                                Container(
-                                  width: 100,
-                                    child: LinearProgressIndicator()),
-                              ],
-                            ),
+                                      );
+                                    },
+                                    text: 'Upload',
+                                    textColor: secDefaultColor,
+                                    minWidth: 100,
+                                  ),
+                                  SizedBox(height: 10,),
+                                  if(state is SocialUSerUpdateLoadingState)
+                                    Container(
+                                        width: 100,
+                                        child: LinearProgressIndicator()),
+                                ],
+                              ),
                           ],
                         ),
                       ),
@@ -151,11 +151,11 @@ class EditProfileScreen extends StatelessWidget {
                                 hint: userModel!.name != null
                                     ? '${userModel.name}'
                                     : 'Enter Your Name',
-                                  controller: nameController,
-                                  type: TextInputType.text,
-                                  validate: () {},
-                                  label: 'Name',
-                                  prefix: Icons.person_outline,
+                                controller: nameController,
+                                type: TextInputType.text,
+                                validate: () {},
+                                label: 'Name',
+                                prefix: Icons.person_outline,
                               ),
                             ),
                             SizedBox(
@@ -217,7 +217,7 @@ class EditProfileScreen extends StatelessWidget {
                         children: [
                           ListTile(
                             leading: Icon(Iconsax.profile_delete4,
-                            size: 40,
+                              size: 40,
                             ),
                             title:  Text('Delete Your Account',
                               style: TextStyle(
@@ -226,20 +226,20 @@ class EditProfileScreen extends StatelessWidget {
                               ),
                             ),
                             subtitle: Text('Find out how  you can delete your account',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                            ),
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 12,
+                              ),
                             ),
                             onTap: (){},
                             trailing: Icon(CupertinoIcons.forward),
 
                           ),
-                    TextButton(onPressed: (){
-                      logOut();
-                    }, child: Text('Logout',
-                      style: TextStyle(color: Colors.red.shade800),),
-                    ),
+                          TextButton(onPressed: (){
+                            logOut();
+                          }, child: Text('Logout',
+                            style: TextStyle(color: Colors.red.shade800),),
+                          ),
                         ],
                       ),
                     ),

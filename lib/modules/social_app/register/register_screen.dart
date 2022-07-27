@@ -1,10 +1,10 @@
 import 'package:chatopea/constants/constants.dart';
+import 'package:chatopea/cubit/cubit.dart';
 import 'package:chatopea/modules/social_app/home/home_screen.dart';
 import 'package:chatopea/modules/social_app/register/register_cubit/cubit.dart';
 import 'package:chatopea/modules/social_app/register/register_cubit/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../constants/components/components.dart';
 import '../../../constants/constants.dart';
 import '../../../network/local/cache_helper.dart';
@@ -32,6 +32,7 @@ class SocialRegisterScreen extends StatelessWidget {
           {
             CacheHelper.saveData(key: 'uId', value: state.uId,).then((value) {
               uId = state.uId ;
+              SocialCubit.get(context).getUserData();
               navigateAndFinish(context, SocialHomeLayout());
             });
           }
@@ -77,7 +78,7 @@ class SocialRegisterScreen extends StatelessWidget {
                       ),
                       defaultFormField(
                         errorText:
-                            _validate ? 'Please Enter Your Full Name' : null,
+                        _validate ? 'Please Enter Your Full Name' : null,
                         controller: nameController,
                         type: TextInputType.name,
                         validate: (String value) {
@@ -110,7 +111,7 @@ class SocialRegisterScreen extends StatelessWidget {
                       ),
                       defaultFormField(
                         errorText:
-                            _validate ? 'Please Enter Your password' : null,
+                        _validate ? 'Please Enter Your password' : null,
                         suffixPressed: () {
                           SocialRegisterCubit.get(context)
                               .changePassVisibility();
@@ -132,7 +133,7 @@ class SocialRegisterScreen extends StatelessWidget {
                       ),
                       defaultFormField(
                         errorText:
-                            _validate ? 'Please Enter Your Phone Number' : null,
+                        _validate ? 'Please Enter Your Phone Number' : null,
                         controller: phoneController,
                         type: TextInputType.phone,
                         validate: (String value) {
@@ -152,25 +153,25 @@ class SocialRegisterScreen extends StatelessWidget {
                           minWidth: 250,
                           sideColor: secDefaultColor,
                           textColor: secDefaultColor,
-                                onPressed: () {
-                                  emailController.text.isEmpty
-                                      ? _validate = true
-                                      : _validate = false;
-                                  passwordController.text.isEmpty
-                                      ? _validate = true
-                                      : _validate = false;
+                          onPressed: () {
+                            emailController.text.isEmpty
+                                ? _validate = true
+                                : _validate = false;
+                            passwordController.text.isEmpty
+                                ? _validate = true
+                                : _validate = false;
 
-                                  if (formKey.currentState!.validate()) {
-                                    SocialRegisterCubit.get(context).userRegister(
-                                      name: nameController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text,
-                                      phone: phoneController.text,
-                                    );
-                                  }
-                                },
-                                text: 'Sign Up',
-                              )
+                            if (formKey.currentState!.validate()) {
+                              SocialRegisterCubit.get(context).userRegister(
+                                name: nameController.text,
+                                email: emailController.text,
+                                password: passwordController.text,
+                                phone: phoneController.text,
+                              );
+                            }
+                          },
+                          text: 'Sign Up',
+                        )
                             : CircularProgressIndicator(),
                       ),
                       SizedBox(
@@ -188,8 +189,8 @@ class SocialRegisterScreen extends StatelessWidget {
                           ),
                           TextButton(
                             style: ButtonStyle(
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                            EdgeInsets.all(0)),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                  EdgeInsets.all(0)),
                             ),
                             onPressed: () {
 
